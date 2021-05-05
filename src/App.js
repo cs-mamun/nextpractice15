@@ -12,22 +12,51 @@ const App = props => {
     ]
   });
 
-  const switchNameHandler = () => {
+  const switchNameHandler = (newName) => {
     // console.log("clicked");
     // this.state.persons[0].name = 'Spy Mamun';
     setPersonState({
       persons: [
-        { name: "Mamun PhD", age: 25, expert: "Ethical Hacking" },
+        { name: newName, age: 25, expert: "Ethical Hacking" },
         { name: "Dr. Mam", age: 27, expert: "Cybersecurity" },
         { name: "Babu", age: 28, expert: "Data Structure" },
       ],
     });
   };
+  // For two way binding 
+  const nameChangeHandler = (event) => {
+    setPersonState({
+      persons: [
+        { name: "Dr. Mamun", age: 25, expert: "Ethical Hacking" },
+        { name: event.target.value, age: 27, expert: "Cybersecurity" },
+        { name: "Babu", age: 28, expert: "Data Structure" },
+      ],
+    });
+  }
+  // inline styleing into the react component. But inline is not good practice
+  const style = {
+    border: '1px solid black',
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    height: '40px',
+    width: '130px',
+    fontSize: '15px',
+    display: 'block',
+    margin: 'auto',
+  };
 
   return (
     <div className="App">
       <strong>Hey there! I am the boss who compiles all.</strong>
-      <button onClick={switchNameHandler}>-Switch Name-</button>
+      {/* <button onClick={switchNameHandler.bind(this, "Engr. Mamun")}>
+        -Switch Name-
+      </button> */}
+      {/* But switchNameHandler('') is not convenient and efficient */}
+      <button 
+      style={style}
+      onClick={() => switchNameHandler('Mukhula Azam')}>
+        -Switch Name-
+      </button>
       <Person
         name={personState.persons[0].name}
         age={personState.persons[0].age}
@@ -37,11 +66,13 @@ const App = props => {
         name={personState.persons[1].name}
         age={personState.persons[1].age}
         expert={personState.persons[1].expert}
+        changed= {nameChangeHandler}
       />
       <Person
         name={personState.persons[2].name}
         age={personState.persons[2].age}
         expert={personState.persons[2].expert}
+        click={switchNameHandler.bind(this, "Engr. M ~")}
       >
         Hello I am props Children
       </Person>
@@ -107,15 +138,3 @@ export default App;
 
 // export default App;
 
-// // function App() {
-// // return (
-// //   <div className="App">
-// //     <strong>Hey there! I am the boss who compiles all.</strong>
-// //     <Person name="Dr. Mamun" age="25" expert="Ethical Hacking" />
-// //     <Person name="Dr. Mam" age="27" expert="Cybersecurity" />
-// //     <Person name="Dr. Babu" age="29" expert="Algorithm"> Hello baby i am children </Person>
-// //   </div>
-// // );
-// // }
-
-// // export default App;

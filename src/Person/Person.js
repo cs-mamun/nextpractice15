@@ -1,12 +1,15 @@
-import React from 'react'
+import React from 'react';
+
+import './Person.css'
 
 const person = (props) =>{
     return (
-        <div>
+        <div className="Person">
             <h2>Greetings! I am form the react application</h2>
 
-            <h5> Hi, I am {props.name} and {props.age} years old and my hobby is {props.expert}</h5>
+            <h5 onClick={props.click}> Hi, I am {props.name} and {props.age} years old and my hobby is {props.expert}</h5>
             <p>{props.children}</p>
+            <input type="text" onChange={props.changed} value={props.name}/>
         </div>
     );
 }
