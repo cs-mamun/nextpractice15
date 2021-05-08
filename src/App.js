@@ -25,14 +25,25 @@ class App extends Component {
       ],
     });
   };
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: "Mamun PhD", age: 25, expert: "Ethical Hacking" },
-        { name: event.target.value, age: 27, expert: "Cybersecurity" },
-        { name: "Babu", age: 28, expert: "Data Structure" },
-      ],
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(person => {
+      return person.id === id;
     });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+
+    // OR
+
+    // const person = Object.assign({} , this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({persons: person});
   };
 
   togglePersonHandler = () => {
@@ -73,6 +84,7 @@ class App extends Component {
             age={person.age}
             expert={person.expert}
             key={person.id}
+            changed={(event) => this.nameChangedHandler(event,person.id)}
             />
           })}
           {/* <Person
